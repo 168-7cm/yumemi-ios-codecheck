@@ -14,7 +14,6 @@ final class GitHubSearchViewController: UITableViewController {
 
     var repositories: [[String: Any]] = []
     var task: URLSessionTask?
-    var index: Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +25,10 @@ final class GitHubSearchViewController: UITableViewController {
         searchBar.delegate = self
     }
 
-    private func transitionToRepositoryDetailViewController() {
+    private func transitionToRepositoryDetailViewController(repository: [String: Any]) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController2") as! RepositoryDetailViewController
-        viewController.gitHubSearchViewController = self
+        viewController.confiture(repository: repository)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -84,7 +83,7 @@ extension GitHubSearchViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        index = indexPath.row
-        transitionToRepositoryDetailViewController()
+        let repository = repositories[indexPath.row]
+        transitionToRepositoryDetailViewController(repository: repository)
     }
 }

@@ -18,16 +18,19 @@ final class RepositoryDetailViewController: UIViewController {
     @IBOutlet private weak var repositoryForkedCountLabel: UILabel!
     @IBOutlet private weak var repositoryOpenIssueCountLabel: UILabel!
     
-    var gitHubSearchViewController: GitHubSearchViewController!
+    private var repository: [String: Any] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let repository = gitHubSearchViewController.repositories[gitHubSearchViewController.index]
-        configure(repository: repository)
+        setupUI(repository: repository)
         getImage(repository: repository)
     }
 
-    private func configure(repository: [String: Any]) {
+    func confiture(repository: [String: Any]) {
+        self.repository = repository
+    }
+
+    private func setupUI(repository: [String: Any]) {
         repositoryLanguageLabel.text = "Written in \(repository["language"] as? String ?? "")"
         repositoryStarCountLabel.text = "\(repository["stargazers_count"] as? Int ?? 0) stars"
         repositoryWatcherCountLabel.text = "\(repository["wachers_count"] as? Int ?? 0) watchers"

@@ -8,85 +8,83 @@
 
 import UIKit
 
-class ViewController: UITableViewController, UISearchBarDelegate {
+final class GitHubSearchViewController: UITableViewController {
 
-    @IBOutlet weak var SchBr: UISearchBar!
-    
-    var repo: [[String: Any]]=[]
-    
+    @IBOutlet private weak var searchBar: UISearchBar!
+
+    var repositories: [[String: Any]] = []
     var task: URLSessionTask?
-    var word: String!
-    var url: String!
-    var idx: Int!
-    
+    var index: Int!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        SchBr.text = "GitHubのリポジトリを検索できるよー"
-        SchBr.delegate = self
+        setup()
     }
-    
+
+    private func setup() {
+        searchBar.text = "GitHubのリポジトリを検索できるよー"
+        searchBar.delegate = self
+    }
+
+    private func transition() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController2") as! ViewController2
+        viewController.vc1 = self
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+extension GitHubSearchViewController: UISearchBarDelegate  {
+
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        // ↓こうすれば初期のテキストを消せる
         searchBar.text = ""
         return true
     }
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         task?.cancel()
     }
-    
+
+    // TODO: データ通信処理はModel層に移行
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        word = searchBar.text!
-        
-        if word.count != 0 {
-            url = "https://api.github.com/search/repositories?q=\(word!)"
-            task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, res, err) in
-                if let obj = try! JSONSerialization.jsonObject(with: data!) as? [String: Any] {
-                    if let items = obj["items"] as? [[String: Any]] {
-                    self.repo = items
+
+        let searchWord = searchBar.text!
+
+        if searchWord.count != 0 {
+            let url = "https://api.github.com/search/repositories?q=\(searchWord)"
+            task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
+                if let object = try! JSONSerialization.jsonObject(with: data!) as? [String: Any] {
+                    if let repositories = object["items"] as? [[String: Any]] {
+                        self.repositories = repositories
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
                         }
                     }
                 }
             }
-        // これ呼ばなきゃリストが更新されません
-        task?.resume()
+            task?.resume()
         }
-        
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "Detail"{
-            let dtl = segue.destination as! ViewController2
-            dtl.vc1 = self
-        }
-        
-    }
-    
+}
+
+extension GitHubSearchViewController {
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return repo.count
+        return repositories.count
     }
-    
+
+    // TODO: セルの再利用
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = UITableViewCell()
-        let rp = repo[indexPath.row]
-        cell.textLabel?.text = rp["full_name"] as? String ?? ""
-        cell.detailTextLabel?.text = rp["language"] as? String ?? ""
+        let repository = repositories[indexPath.row]
+        cell.textLabel?.text = repository["full_name"] as? String ?? ""
+        cell.detailTextLabel?.text = repository["language"] as? String ?? ""
         cell.tag = indexPath.row
         return cell
-        
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 画面遷移時に呼ばれる
-        idx = indexPath.row
-        performSegue(withIdentifier: "Detail", sender: self)
-        
+        index = indexPath.row
+        transition()
     }
-    
 }

@@ -26,10 +26,10 @@ final class GitHubSearchViewController: UITableViewController {
         searchBar.delegate = self
     }
 
-    private func transition() {
+    private func transitionToRepositoryDetailViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController2") as! ViewController2
-        viewController.vc1 = self
+        let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController2") as! RepositoryDetailViewController
+        viewController.gitHubSearchViewController = self
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -85,6 +85,6 @@ extension GitHubSearchViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         index = indexPath.row
-        transition()
+        transitionToRepositoryDetailViewController()
     }
 }

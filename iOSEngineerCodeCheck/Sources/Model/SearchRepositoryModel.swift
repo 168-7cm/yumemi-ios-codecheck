@@ -10,13 +10,13 @@ import Foundation
 import RxSwift
 import Alamofire
 
-protocol SearchRepositoryModelInput {
-    func search(gitHubAPI: GitHubAPI) -> Single<[Repository]>
+protocol SearchRepositoryModelType {
+    func searchRepository(gitHubAPI: GitHubAPI) -> Single<[Repository]>
 }
 
-final class SearchRepositoryModel: SearchRepositoryModelInput {
+final class SearchRepositoryModel: SearchRepositoryModelType {
 
-    func search(gitHubAPI: GitHubAPI) -> Single<[Repository]> {
+    func searchRepository(gitHubAPI: GitHubAPI) -> Single<[Repository]> {
 
         return Single.create { observer in
 

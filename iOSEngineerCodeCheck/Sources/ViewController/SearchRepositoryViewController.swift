@@ -12,8 +12,8 @@ final class SearchRepositoryViewController: UITableViewController {
 
     @IBOutlet private weak var searchBar: UISearchBar!
 
-    var repositories: [Repository] = []
-    var task: URLSessionTask?
+    private var repositories: [Repository] = []
+    private var task: URLSessionTask?
 
     override func viewDidLoad() {
         super.viewDidLoad()

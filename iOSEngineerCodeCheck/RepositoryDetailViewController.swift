@@ -18,7 +18,7 @@ final class RepositoryDetailViewController: UIViewController {
     @IBOutlet private weak var repositoryForkedCountLabel: UILabel!
     @IBOutlet private weak var repositoryOpenIssueCountLabel: UILabel!
     
-    private var repository: [String: Any] = [:]
+    private var repository: Repository!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,30 +26,31 @@ final class RepositoryDetailViewController: UIViewController {
         getImage(repository: repository)
     }
 
-    func confiture(repository: [String: Any]) {
-        self.repository = repository
+    static func configure(repository: Repository) -> RepositoryDetailViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController2") as! RepositoryDetailViewController
+        viewController.repository = repository
+        return viewController
     }
 
-    private func setupUI(repository: [String: Any]) {
-        repositoryLanguageLabel.text = "Written in \(repository["language"] as? String ?? "")"
-        repositoryStarCountLabel.text = "\(repository["stargazers_count"] as? Int ?? 0) stars"
-        repositoryWatcherCountLabel.text = "\(repository["wachers_count"] as? Int ?? 0) watchers"
-        repositoryForkedCountLabel.text = "\(repository["forks_count"] as? Int ?? 0) forks"
-        repositoryOpenIssueCountLabel.text = "\(repository["open_issues_count"] as? Int ?? 0) open issues"
+    private func setupUI(repository: Repository) {
+        repositoryLanguageLabel.text = "Written in \(repository.language ?? "")"
+        repositoryStarCountLabel.text = "\(repository.starsCount) stars"
+        repositoryWatcherCountLabel.text = "\(repository.watchersCount) watchers"
+        repositoryForkedCountLabel.text = "\(repository.forksCount) forks"
+        repositoryOpenIssueCountLabel.text = "\(repository.openIssuesCount) open issues"
     }
     
-    private func getImage(repository: [String: Any]) {
+    private func getImage(repository: Repository) {
 
-        repositoryTitleLabel.text = repository["full_name"] as? String
-        
-        if let owner = repository["owner"] as? [String: Any],
-           let imageURL = owner["avatar_url"] as? String {
-            URLSession.shared.dataTask(with: URL(string: imageURL)!) { (data, res, err) in
-                let image = UIImage(data: data!)!
-                DispatchQueue.main.async {
-                    self.repositoryImageView.image = image
-                }
-            }.resume()
-        }
+        repositoryTitleLabel.text = repository.fullName
+
+        let imageURL = repository.owner.avatarURL
+        URLSession.shared.dataTask(with: URL(string: imageURL)!) { (data, res, err) in
+            let image = UIImage(data: data!)!
+            DispatchQueue.main.async {
+                self.repositoryImageView.image = image
+            }
+        }.resume()
     }
 }

@@ -12,7 +12,7 @@ final class GitHubSearchViewController: UITableViewController {
 
     @IBOutlet private weak var searchBar: UISearchBar!
 
-    var repositories: [[String: Any]] = []
+    var repositories: [Repository] = []
     var task: URLSessionTask?
 
     override func viewDidLoad() {
@@ -25,10 +25,8 @@ final class GitHubSearchViewController: UITableViewController {
         searchBar.delegate = self
     }
 
-    private func transitionToRepositoryDetailViewController(repository: [String: Any]) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController2") as! RepositoryDetailViewController
-        viewController.confiture(repository: repository)
+    private func transitionToRepositoryDetailViewController(repository: Repository) {
+        let viewController = RepositoryDetailViewController.configure(repository: repository)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -52,13 +50,10 @@ extension GitHubSearchViewController: UISearchBarDelegate  {
         if searchWord.count != 0 {
             let url = "https://api.github.com/search/repositories?q=\(searchWord)"
             task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
-                if let object = try! JSONSerialization.jsonObject(with: data!) as? [String: Any] {
-                    if let repositories = object["items"] as? [[String: Any]] {
-                        self.repositories = repositories
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
-                    }
+                guard let response = try? JSONDecoder().decode(GitHubSearchResponse.self, from: data!) else { return }
+                self.repositories = response.items
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
                 }
             }
             task?.resume()
@@ -76,8 +71,8 @@ extension GitHubSearchViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         let repository = repositories[indexPath.row]
-        cell.textLabel?.text = repository["full_name"] as? String ?? ""
-        cell.detailTextLabel?.text = repository["language"] as? String ?? ""
+        cell.textLabel?.text = repository.fullName
+        cell.detailTextLabel?.text = repository.language
         cell.tag = indexPath.row
         return cell
     }

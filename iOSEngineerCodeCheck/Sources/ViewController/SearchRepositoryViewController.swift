@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class GitHubSearchViewController: UITableViewController {
+final class SearchRepositoryViewController: UITableViewController {
 
     @IBOutlet private weak var searchBar: UISearchBar!
 
@@ -31,7 +31,7 @@ final class GitHubSearchViewController: UITableViewController {
     }
 }
 
-extension GitHubSearchViewController: UISearchBarDelegate  {
+extension SearchRepositoryViewController: UISearchBarDelegate  {
 
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         searchBar.text = ""
@@ -61,7 +61,7 @@ extension GitHubSearchViewController: UISearchBarDelegate  {
     }
 }
 
-extension GitHubSearchViewController {
+extension SearchRepositoryViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return repositories.count

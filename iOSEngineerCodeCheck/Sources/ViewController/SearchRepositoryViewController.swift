@@ -8,13 +8,12 @@
 
 import UIKit
 
-final class GitHubSearchViewController: UITableViewController {
+final class SearchRepositoryViewController: UITableViewController {
 
     @IBOutlet private weak var searchBar: UISearchBar!
 
-    var repositories: [[String: Any]] = []
-    var task: URLSessionTask?
-    var index: Int!
+    private var repositories: [Repository] = []
+    private var task: URLSessionTask?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,15 +25,13 @@ final class GitHubSearchViewController: UITableViewController {
         searchBar.delegate = self
     }
 
-    private func transitionToRepositoryDetailViewController() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController2") as! RepositoryDetailViewController
-        viewController.gitHubSearchViewController = self
+    private func transitionToRepositoryDetailViewController(repository: Repository) {
+        let viewController = RepositoryDetailViewController.configure(repository: repository)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
-extension GitHubSearchViewController: UISearchBarDelegate  {
+extension SearchRepositoryViewController: UISearchBarDelegate  {
 
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         searchBar.text = ""
@@ -50,16 +47,13 @@ extension GitHubSearchViewController: UISearchBarDelegate  {
 
         let searchWord = searchBar.text!
 
-        if searchWord.count != 0 {
-            let url = "https://api.github.com/search/repositories?q=\(searchWord)"
-            task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
-                if let object = try! JSONSerialization.jsonObject(with: data!) as? [String: Any] {
-                    if let repositories = object["items"] as? [[String: Any]] {
-                        self.repositories = repositories
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
-                    }
+        if searchWord.count != 0,
+        let url = URL(string: "https://api.github.com/search/repositories?q=\(searchWord)") {
+            task = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+                guard let response = try? JSONDecoder().decode(GitHubSearchResponse.self, from: data!) else { return }
+                self?.repositories = response.items
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
                 }
             }
             task?.resume()
@@ -67,7 +61,7 @@ extension GitHubSearchViewController: UISearchBarDelegate  {
     }
 }
 
-extension GitHubSearchViewController {
+extension SearchRepositoryViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return repositories.count
@@ -77,14 +71,14 @@ extension GitHubSearchViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         let repository = repositories[indexPath.row]
-        cell.textLabel?.text = repository["full_name"] as? String ?? ""
-        cell.detailTextLabel?.text = repository["language"] as? String ?? ""
+        cell.textLabel?.text = repository.fullName
+        cell.detailTextLabel?.text = repository.language
         cell.tag = indexPath.row
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        index = indexPath.row
-        transitionToRepositoryDetailViewController()
+        let repository = repositories[indexPath.row]
+        transitionToRepositoryDetailViewController(repository: repository)
     }
 }

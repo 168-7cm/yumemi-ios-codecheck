@@ -8,22 +8,42 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
-final class SearchRepositoryViewController: UITableViewController {
+final class SearchRepositoryViewController: UIViewController {
 
     @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet private weak var tableView: UITableView!
 
-    private var repositories: [Repository] = []
-    private var task: URLSessionTask?
+    private var viewModel: SearchRepositoryViewModelType!
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
 
+    static func configure() -> SearchRepositoryViewController {
+        let viewController = StoryboardScene.SearchRepositoryViewController.searchRepository.instantiate()
+        viewController.viewModel = SearchRepositoryViewModel(model: SearchRepositoryModel())
+        return viewController
+    }
+
     private func setup() {
         searchBar.text = "GitHubのリポジトリを検索できるよー"
         searchBar.delegate = self
+        bind()
+    }
+
+    private func bind() {
+
+        viewModel
+            .outputs
+            .repositories
+            .bind(to: tableView.rx.items(cellIdentifier: "RepositoryCell")) { row, repository, cell in
+                cell.textLabel?.text = repository.fullName
+                cell.detailTextLabel?.text = repository.language
+            }.disposed(by: disposeBag)
     }
 
     private func transitionToRepositoryDetailViewController(repository: Repository) {
@@ -39,47 +59,8 @@ extension SearchRepositoryViewController: UISearchBarDelegate  {
         return true
     }
 
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        task?.cancel()
-    }
-
-    // TODO: データ通信処理はModel層に移行
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-
-        let searchWord = searchBar.text!
-
-        if searchWord.count != 0,
-        let url = URL(string: "https://api.github.com/search/repositories?q=\(searchWord)") {
-            task = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-                guard let response = try? JSONDecoder().decode(GitHubSearchResponse.self, from: data!) else { return }
-                self?.repositories = response.items
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-            }
-            task?.resume()
-        }
-    }
-}
-
-extension SearchRepositoryViewController {
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return repositories.count
-    }
-
-    // TODO: セルの再利用
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        let repository = repositories[indexPath.row]
-        cell.textLabel?.text = repository.fullName
-        cell.detailTextLabel?.text = repository.language
-        cell.tag = indexPath.row
-        return cell
-    }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let repository = repositories[indexPath.row]
-        transitionToRepositoryDetailViewController(repository: repository)
+        let gitHubAPI = GitHubAPI.searchRepository(keyword: searchBar.text!)
+        viewModel.inputs.searchRepository(GitHubAPI: gitHubAPI)
     }
 }

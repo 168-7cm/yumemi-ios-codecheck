@@ -28,7 +28,6 @@ final class SearchRepositoryViewModel {
 
     private let model: SearchRepositoryModelType
     private let repositoriesRelay = BehaviorRelay<[Repository]>(value: [])
-
     private let disposeBag = DisposeBag()
 
     init(model: SearchRepositoryModelType) {
@@ -42,7 +41,6 @@ extension SearchRepositoryViewModel: SearchRepositoryViewModelType {
 }
 
 extension SearchRepositoryViewModel: SearchRepositoryViewModelInputs {
-
     func searchRepository(GitHubAPI: GitHubAPI) {
         model.searchRepository(gitHubAPI: GitHubAPI)
             .subscribe(
@@ -50,7 +48,6 @@ extension SearchRepositoryViewModel: SearchRepositoryViewModelInputs {
                     self?.repositoriesRelay.accept(repositories)
                 },
                 onFailure: { [weak self] error in
-                    print(error.localizedDescription)
                 }).disposed(by: disposeBag)
     }
 }

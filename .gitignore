@@ -132,4 +132,7 @@ iOSInjectionProject/
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 
+### ignore CocoaPods
+Pods/*
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,swift,xcode

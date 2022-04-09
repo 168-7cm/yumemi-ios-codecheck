@@ -9,7 +9,7 @@ target 'iOSEngineerCodeCheck' do
   pod 'RxSwift', '6.5.0'
   pod 'RxCocoa', '6.5.0'
   pod 'SwiftGen', '~> 6.0'
-
+  pod 'Alamofire', '~> 5.5'
 
   target 'iOSEngineerCodeCheckTests' do
     inherit! :search_paths

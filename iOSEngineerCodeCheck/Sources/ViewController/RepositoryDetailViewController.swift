@@ -34,7 +34,7 @@ final class RepositoryDetailViewController: UIViewController {
     }
 
     private func setupUI(repository: Repository) {
-        repositoryLanguageLabel.text = "Written in \(repository.language ?? "")"
+        repositoryLanguageLabel.text = "Written in \(repository.language)"
         repositoryStarCountLabel.text = "\(repository.starsCount) stars"
         repositoryWatcherCountLabel.text = "\(repository.watchersCount) watchers"
         repositoryForkedCountLabel.text = "\(repository.forksCount) forks"
@@ -45,11 +45,12 @@ final class RepositoryDetailViewController: UIViewController {
 
         repositoryTitleLabel.text = repository.fullName
 
-        let imageURL = repository.owner.avatarURL
-        URLSession.shared.dataTask(with: URL(string: imageURL)!) { (data, res, err) in
-            let image = UIImage(data: data!)!
-            DispatchQueue.main.async {
-                self.repositoryImageView.image = image
+        guard let url = URL(string: repository.owner.avatarURL) else { return }
+        URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+            if let data = data, let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self?.repositoryImageView.image = image
+                }
             }
         }.resume()
     }

@@ -47,13 +47,13 @@ extension SearchRepositoryViewController: UISearchBarDelegate  {
 
         let searchWord = searchBar.text!
 
-        if searchWord.count != 0 {
-            let url = "https://api.github.com/search/repositories?q=\(searchWord)"
-            task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
+        if searchWord.count != 0,
+        let url = URL(string: "https://api.github.com/search/repositories?q=\(searchWord)") {
+            task = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
                 guard let response = try? JSONDecoder().decode(GitHubSearchResponse.self, from: data!) else { return }
-                self.repositories = response.items
+                self?.repositories = response.items
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                    self?.tableView.reloadData()
                 }
             }
             task?.resume()

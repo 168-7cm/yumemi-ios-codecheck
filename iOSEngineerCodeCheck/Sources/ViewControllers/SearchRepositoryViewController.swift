@@ -20,7 +20,7 @@ final class SearchRepositoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupSearchBar()
+        setup()
         bindUI()
     }
 
@@ -30,21 +30,18 @@ final class SearchRepositoryViewController: UIViewController {
         return viewController
     }
 
-    private func setupSearchBar() {
+    private func setup() {
+        tableView.registerCustomCell(RepositoryCell.self)
         searchBar.text = L10n.SearchBar.Initial.message
         searchBar.delegate = self
     }
 
     private func bindUI() {
 
-        viewModel
-            .outputs
-            .repositories
-        // TODO: add UITableView extension
-            .bind(to: tableView.rx.items(cellIdentifier: "RepositoryCell")) { row, repository, cell in
-                // TODO: Change custom cell
-                cell.textLabel?.text = repository.fullName
-                cell.detailTextLabel?.text = repository.language
+        /* セルとのバインド */
+        viewModel.outputs.repositories
+            .bind(to: tableView.rx.items(cellIdentifier: RepositoryCell.identifier, cellType: RepositoryCell.self)) { index, repository, cell in
+                cell.configure(repository: repository)
             }.disposed(by: disposeBag)
 
         /* セル選択時 */

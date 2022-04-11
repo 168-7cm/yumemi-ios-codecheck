@@ -20,6 +20,9 @@
 		BB2D69572801C9AB009D6F2A /* SearchRepository.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB2D69562801C9AB009D6F2A /* SearchRepository.storyboard */; };
 		BB2D69592803C431009D6F2A /* RepositoryDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB2D69582803C431009D6F2A /* RepositoryDetail.storyboard */; };
 		BB2D69602803C8E7009D6F2A /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D695F2803C8E7009D6F2A /* UIImage+Utils.swift */; };
+		BB2D696A280468EE009D6F2A /* UITableView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D6969280468EE009D6F2A /* UITableView+Utils.swift */; };
+		BB93DEDD28046C4500420D29 /* RepositoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB93DEDC28046C4500420D29 /* RepositoryCell.swift */; };
+		BB93DEDF28046C4E00420D29 /* RepositoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB93DEDE28046C4E00420D29 /* RepositoryCell.xib */; };
 		BBCAA48A28008AD00000962D /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCAA48928008AD00000962D /* Repository.swift */; };
 		BBCAA48D280127160000962D /* GitHubSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCAA48C280127160000962D /* GitHubSearchResponse.swift */; };
 		BBCAA48F2801274A0000962D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCAA48E2801274A0000962D /* User.swift */; };
@@ -70,6 +73,9 @@
 		BB2D69562801C9AB009D6F2A /* SearchRepository.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchRepository.storyboard; sourceTree = "<group>"; };
 		BB2D69582803C431009D6F2A /* RepositoryDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RepositoryDetail.storyboard; sourceTree = "<group>"; };
 		BB2D695F2803C8E7009D6F2A /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
+		BB2D6969280468EE009D6F2A /* UITableView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Utils.swift"; sourceTree = "<group>"; };
+		BB93DEDC28046C4500420D29 /* RepositoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryCell.swift; sourceTree = "<group>"; };
+		BB93DEDE28046C4E00420D29 /* RepositoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryCell.xib; sourceTree = "<group>"; };
 		BBCAA48928008AD00000962D /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		BBCAA48C280127160000962D /* GitHubSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubSearchResponse.swift; sourceTree = "<group>"; };
 		BBCAA48E2801274A0000962D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -119,37 +125,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BB2D69482801A384009D6F2A /* ViewModel */ = {
+		BB2D69482801A384009D6F2A /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				BB2D69542801C54D009D6F2A /* SearchRepositoryViewModel.swift */,
 			);
-			path = ViewModel;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		BB2D69492801A38C009D6F2A /* Model */ = {
+		BB2D69492801A38C009D6F2A /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				BB2D694A2801A495009D6F2A /* SearchRepositoryModel.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		BB2D694C2801A798009D6F2A /* Enum */ = {
+		BB2D694C2801A798009D6F2A /* Enums */ = {
 			isa = PBXGroup;
 			children = (
 				BB2D694D2801A7B5009D6F2A /* SearchRepositoryError.swift */,
 				BB2D69522801A965009D6F2A /* GitHubAPI.swift */,
 			);
-			path = Enum;
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		BB2D695E2803C8D8009D6F2A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				BB2D695F2803C8E7009D6F2A /* UIImage+Utils.swift */,
+				BB2D6969280468EE009D6F2A /* UITableView+Utils.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BB2D69612804677F009D6F2A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BB93DEDB28046C2300420D29 /* RepositoryCell */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BB93DEDB28046C2300420D29 /* RepositoryCell */ = {
+			isa = PBXGroup;
+			children = (
+				BB93DEDC28046C4500420D29 /* RepositoryCell.swift */,
+				BB93DEDE28046C4E00420D29 /* RepositoryCell.xib */,
+			);
+			path = RepositoryCell;
 			sourceTree = "<group>";
 		};
 		BBCAA48B280126630000962D /* Entities */ = {
@@ -162,13 +186,13 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
-		BBCAA490280133D90000962D /* ViewController */ = {
+		BBCAA490280133D90000962D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				BFD945E2244DC5E80012785A /* SearchRepositoryViewController.swift */,
 				BF0A658C244F2A3B00280FA6 /* RepositoryDetailViewController.swift */,
 			);
-			path = ViewController;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		BBCAA491280134080000962D /* Storyboards */ = {
@@ -196,10 +220,11 @@
 			isa = PBXGroup;
 			children = (
 				BB2D695E2803C8D8009D6F2A /* Extensions */,
-				BB2D694C2801A798009D6F2A /* Enum */,
-				BB2D69492801A38C009D6F2A /* Model */,
-				BBCAA490280133D90000962D /* ViewController */,
-				BB2D69482801A384009D6F2A /* ViewModel */,
+				BB2D694C2801A798009D6F2A /* Enums */,
+				BB2D69492801A38C009D6F2A /* Models */,
+				BBCAA490280133D90000962D /* ViewControllers */,
+				BB2D69612804677F009D6F2A /* Views */,
+				BB2D69482801A384009D6F2A /* ViewModels */,
 				BBCAA491280134080000962D /* Storyboards */,
 				BBCAA48B280126630000962D /* Entities */,
 				BFD945DE244DC5E80012785A /* AppDelegate.swift */,
@@ -403,6 +428,7 @@
 				BFD945EB244DC5EB0012785A /* LaunchScreen.storyboard in Resources */,
 				BBCAA4AD280147CF0000962D /* Localizable.strings in Resources */,
 				BFD945E8244DC5EB0012785A /* Assets.xcassets in Resources */,
+				BB93DEDF28046C4E00420D29 /* RepositoryCell.xib in Resources */,
 				BB2D69592803C431009D6F2A /* RepositoryDetail.storyboard in Resources */,
 				BB2D69572801C9AB009D6F2A /* SearchRepository.storyboard in Resources */,
 			);
@@ -563,6 +589,8 @@
 				BB2D69602803C8E7009D6F2A /* UIImage+Utils.swift in Sources */,
 				BFD945DF244DC5E80012785A /* AppDelegate.swift in Sources */,
 				BFD945E1244DC5E80012785A /* SceneDelegate.swift in Sources */,
+				BB93DEDD28046C4500420D29 /* RepositoryCell.swift in Sources */,
+				BB2D696A280468EE009D6F2A /* UITableView+Utils.swift in Sources */,
 				BB2D694628014AC9009D6F2A /* Segues.swift in Sources */,
 				BBCAA48F2801274A0000962D /* User.swift in Sources */,
 			);

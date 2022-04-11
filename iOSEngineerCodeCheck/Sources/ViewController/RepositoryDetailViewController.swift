@@ -23,35 +23,21 @@ final class RepositoryDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI(repository: repository)
-        getImage(repository: repository)
     }
 
     static func configure(repository: Repository) -> RepositoryDetailViewController {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController2") as! RepositoryDetailViewController
+        let viewController = StoryboardScene.RepositoryDetail.repositoryDetail.instantiate()
         viewController.repository = repository
         return viewController
     }
 
     private func setupUI(repository: Repository) {
-        repositoryLanguageLabel.text = "Written in \(repository.language)"
+        repositoryLanguageLabel.text = "Written in \(repository.language ?? "")"
         repositoryStarCountLabel.text = "\(repository.starsCount) stars"
         repositoryWatcherCountLabel.text = "\(repository.watchersCount) watchers"
         repositoryForkedCountLabel.text = "\(repository.forksCount) forks"
         repositoryOpenIssueCountLabel.text = "\(repository.openIssuesCount) open issues"
-    }
-    
-    private func getImage(repository: Repository) {
-
-        repositoryTitleLabel.text = repository.fullName
-
-        guard let url = URL(string: repository.owner.avatarURL) else { return }
-        URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-            if let data = data, let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    self?.repositoryImageView.image = image
-                }
-            }
-        }.resume()
+        repositoryTitleLabel.text = "\(repository.fullName) open issues"
+        repositoryImageView.image = UIImage(url: repository.owner.avatarURL)
     }
 }

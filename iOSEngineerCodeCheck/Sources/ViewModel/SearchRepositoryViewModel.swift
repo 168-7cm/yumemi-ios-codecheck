@@ -23,7 +23,6 @@ protocol SearchRepositoryViewModelType {
     var outputs: SearchRepositoryViewModelOutputs { get }
 }
 
-
 final class SearchRepositoryViewModel {
 
     private let model: SearchRepositoryModelType
@@ -40,6 +39,7 @@ extension SearchRepositoryViewModel: SearchRepositoryViewModelType {
     var outputs: SearchRepositoryViewModelOutputs { return self }
 }
 
+// TODO: show error alert
 extension SearchRepositoryViewModel: SearchRepositoryViewModelInputs {
     func searchRepository(GitHubAPI: GitHubAPI) {
         model.searchRepository(gitHubAPI: GitHubAPI)
@@ -47,7 +47,7 @@ extension SearchRepositoryViewModel: SearchRepositoryViewModelInputs {
                 onSuccess: { [weak self] repositories in
                     self?.repositoriesRelay.accept(repositories)
                 },
-                onFailure: { [weak self] error in
+                onFailure: { _ in
                 }).disposed(by: disposeBag)
     }
 }

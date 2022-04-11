@@ -20,33 +20,41 @@ final class SearchRepositoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        setupSearchBar()
+        bindUI()
     }
 
     static func configure() -> SearchRepositoryViewController {
-        let viewController = StoryboardScene.SearchRepositoryViewController.searchRepository.instantiate()
+        let viewController = StoryboardScene.SearchRepository.searchRepository.instantiate()
         viewController.viewModel = SearchRepositoryViewModel(model: SearchRepositoryModel())
         return viewController
     }
 
-    private func setup() {
-        searchBar.text = "GitHubのリポジトリを検索できるよー"
+    private func setupSearchBar() {
+        searchBar.text = L10n.SearchBar.Initial.message
         searchBar.delegate = self
-        bind()
     }
 
-    private func bind() {
+    private func bindUI() {
 
         viewModel
             .outputs
             .repositories
+        // TODO: add UITableView extension
             .bind(to: tableView.rx.items(cellIdentifier: "RepositoryCell")) { row, repository, cell in
+                // TODO: Change custom cell
                 cell.textLabel?.text = repository.fullName
                 cell.detailTextLabel?.text = repository.language
             }.disposed(by: disposeBag)
+
+        /* セル選択時 */
+        tableView.rx.modelSelected(Repository.self)
+            .subscribe(onNext: { [weak self] repository in
+                self?.transitionToRepositoryDetail(repository: repository)
+            }).disposed(by: disposeBag)
     }
 
-    private func transitionToRepositoryDetailViewController(repository: Repository) {
+    private func transitionToRepositoryDetail(repository: Repository) {
         let viewController = RepositoryDetailViewController.configure(repository: repository)
         navigationController?.pushViewController(viewController, animated: true)
     }

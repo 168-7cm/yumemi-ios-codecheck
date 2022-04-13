@@ -18,8 +18,8 @@ final class RepositoryCell: UITableViewCell {
 
     func configure(repository: Repository) {
         repositoryNameLabel.text = repository.fullName
-        // TODO: 説明文を取得するようにする
-        repositoryDescriptionLabel.text = "あああああああああああああ"
+        repositoryDescriptionLabel.text = "\(repository.description ?? "")"
+        repositoryDescriptionLabel.isHidden = repository.description == nil ? true : false
         repositoryStarsCountLabel.text = "\(repository.starsCount)"
         repositoryLanguageLabel.text = repository.language
         repositoryLanguageColorView.backgroundColor = ProgramingLanguage(rawValue: repository.language).langColor

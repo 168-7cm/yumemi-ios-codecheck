@@ -31,28 +31,29 @@ enum ProgramingLanguage {
             self = .ruby
         case "Swift":
             self = .swift
+        case "Kotlin":
+            self = .kotlin
         default:
             self = .other
         }
     }
 
-    // TODO: 色を設定する
     var langColor: UIColor {
         switch self {
         case .java:
-            return .blue
+            return Asset.java.color
         case .javaScript:
-            return .label
+            return Asset.javaScript.color
         case .python:
-            return .brown
+            return Asset.python.color
         case .ruby:
-            return .blue
+            return Asset.ruby.color
         case .swift:
-            return .label
+            return Asset.swift.color
         case .kotlin:
-            return .blue
+            return Asset.kotlin.color
         case .other:
-            return .red
+            return Asset.other.color
         }
     }
 }

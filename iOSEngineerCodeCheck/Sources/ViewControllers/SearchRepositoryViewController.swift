@@ -57,6 +57,7 @@ final class SearchRepositoryViewController: UIViewController {
     }
 }
 
+// TODO: Rxでバインドする
 extension SearchRepositoryViewController: UISearchBarDelegate  {
 
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {

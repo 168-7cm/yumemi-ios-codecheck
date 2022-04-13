@@ -14,12 +14,14 @@ final class RepositoryCell: UITableViewCell {
     @IBOutlet private weak var repositoryDescriptionLabel: UILabel!
     @IBOutlet private weak var repositoryStarsCountLabel: UILabel!
     @IBOutlet private weak var repositoryLanguageLabel: UILabel!
-    @IBOutlet private weak var repositoryLanguageBackgroundView: UIView!
+    @IBOutlet private weak var repositoryLanguageColorView: UIView!
 
     func configure(repository: Repository) {
         repositoryNameLabel.text = repository.fullName
+        // TODO: 説明文を取得するようにする
         repositoryDescriptionLabel.text = "あああああああああああああ"
         repositoryStarsCountLabel.text = "\(repository.starsCount)"
         repositoryLanguageLabel.text = repository.language
+        repositoryLanguageColorView.backgroundColor = ProgramingLanguage(rawValue: repository.language).langColor
     }
 }

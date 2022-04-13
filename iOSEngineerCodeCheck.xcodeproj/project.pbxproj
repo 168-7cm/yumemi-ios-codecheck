@@ -228,10 +228,10 @@
 				BBCAA490280133D90000962D /* ViewControllers */,
 				BB2D69612804677F009D6F2A /* Views */,
 				BB2D69482801A384009D6F2A /* ViewModels */,
-				BBCAA491280134080000962D /* Storyboards */,
 				BBCAA48B280126630000962D /* Entities */,
 				BFD945DE244DC5E80012785A /* AppDelegate.swift */,
 				BFD945E0244DC5E80012785A /* SceneDelegate.swift */,
+				BBCAA491280134080000962D /* Storyboards */,
 			);
 			path = Sources;
 			sourceTree = "<group>";

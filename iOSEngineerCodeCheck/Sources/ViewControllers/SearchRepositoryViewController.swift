@@ -14,6 +14,7 @@ final class SearchRepositoryViewController: UIViewController {
 
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
     private var viewModel: SearchRepositoryViewModelType!
     private let disposeBag = DisposeBag()
@@ -31,6 +32,7 @@ final class SearchRepositoryViewController: UIViewController {
     }
 
     private func setup() {
+        activityIndicatorView.hidesWhenStopped = true
         tableView.registerCustomCell(RepositoryCell.self)
         searchBar.text = L10n.SearchBar.Initial.message
         searchBar.delegate = self
@@ -48,6 +50,12 @@ final class SearchRepositoryViewController: UIViewController {
         tableView.rx.modelSelected(Repository.self)
             .subscribe(onNext: { [weak self] repository in
                 self?.transitionToRepositoryDetail(repository: repository)
+            }).disposed(by: disposeBag)
+
+        /* インジケータを表示 */
+        viewModel.outputs.isLoading
+            .subscribe(onNext: { [weak self] isLoading in
+                isLoading ? self?.activityIndicatorView.startAnimating() : self?.activityIndicatorView.stopAnimating()
             }).disposed(by: disposeBag)
     }
 

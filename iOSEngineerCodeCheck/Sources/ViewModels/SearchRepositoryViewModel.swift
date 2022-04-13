@@ -16,6 +16,7 @@ protocol SearchRepositoryViewModelInputs {
 
 protocol SearchRepositoryViewModelOutputs {
     var repositories: Observable<[Repository]> { get }
+    var isLoading: Observable<Bool> { get }
 }
 
 protocol SearchRepositoryViewModelType {
@@ -27,6 +28,7 @@ final class SearchRepositoryViewModel {
 
     private let model: SearchRepositoryModelType
     private let repositoriesRelay = BehaviorRelay<[Repository]>(value: [])
+    private let isLoadingRelay = BehaviorRelay<Bool>(value: false)
     private let disposeBag = DisposeBag()
 
     init(model: SearchRepositoryModelType) {
@@ -39,19 +41,23 @@ extension SearchRepositoryViewModel: SearchRepositoryViewModelType {
     var outputs: SearchRepositoryViewModelOutputs { return self }
 }
 
-// TODO: show error alert
 extension SearchRepositoryViewModel: SearchRepositoryViewModelInputs {
     func searchRepository(GitHubAPI: GitHubAPI) {
+        isLoadingRelay.accept(true)
         model.searchRepository(gitHubAPI: GitHubAPI)
             .subscribe(
                 onSuccess: { [weak self] repositories in
+                    self?.isLoadingRelay.accept(false)
                     self?.repositoriesRelay.accept(repositories)
                 },
-                onFailure: { _ in
+                onFailure: { [weak self] _ in
+                    self?.isLoadingRelay.accept(false)
+                    // TODO: show error alert
                 }).disposed(by: disposeBag)
     }
 }
 
 extension SearchRepositoryViewModel: SearchRepositoryViewModelOutputs {
     var repositories: Observable<[Repository]> { return repositoriesRelay.asObservable() }
+    var isLoading: Observable<Bool> { return isLoadingRelay.asObservable() }
 }

@@ -50,21 +50,27 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="7Uc-fL-eCm">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="W1a-X3-v80" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="6fb-uO-39I"/>
+                            <constraint firstItem="7Uc-fL-eCm" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="7Nd-RG-57O"/>
                             <constraint firstItem="bok-8X-8TO" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="7WA-Gu-CLK"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="W1a-X3-v80" secondAttribute="bottom" id="Mr8-Gl-zi9"/>
                             <constraint firstItem="bok-8X-8TO" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="PLC-Cx-jzh"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="W1a-X3-v80" secondAttribute="trailing" id="RLK-Xi-NZq"/>
                             <constraint firstItem="bok-8X-8TO" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="hJ2-8u-ZKz"/>
                             <constraint firstItem="W1a-X3-v80" firstAttribute="top" secondItem="bok-8X-8TO" secondAttribute="bottom" id="hTT-tD-c4f"/>
+                            <constraint firstItem="7Uc-fL-eCm" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="pe9-cM-o3n"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ku2-EY-fB9"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="7Uc-fL-eCm" id="nvE-xP-qjx"/>
                         <outlet property="searchBar" destination="bok-8X-8TO" id="GLG-yo-Opw"/>
                         <outlet property="tableView" destination="W1a-X3-v80" id="KVo-uj-Hun"/>
                     </connections>

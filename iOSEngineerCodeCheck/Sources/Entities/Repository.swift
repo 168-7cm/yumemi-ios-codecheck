@@ -16,6 +16,7 @@ struct Repository: Codable {
     let watchersCount: Int
     let forksCount: Int
     let openIssuesCount: Int
+    let description: String?
 
     enum CodingKeys: String, CodingKey {
         case owner
@@ -25,5 +26,6 @@ struct Repository: Codable {
         case watchersCount = "watchers_count"
         case forksCount = "forks_count"
         case openIssuesCount = "open_issues_count"
+        case description
     }
 }

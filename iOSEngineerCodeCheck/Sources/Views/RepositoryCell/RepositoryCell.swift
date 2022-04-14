@@ -15,6 +15,7 @@ final class RepositoryCell: UITableViewCell {
     @IBOutlet private weak var repositoryStarsCountLabel: UILabel!
     @IBOutlet private weak var repositoryLanguageLabel: UILabel!
     @IBOutlet private weak var repositoryLanguageColorView: UIView!
+    @IBOutlet private weak var repositoryLanguageStackView: UIStackView!
 
     func configure(repository: Repository) {
         repositoryNameLabel.text = repository.fullName
@@ -22,6 +23,8 @@ final class RepositoryCell: UITableViewCell {
         repositoryDescriptionLabel.isHidden = repository.description == nil ? true : false
         repositoryStarsCountLabel.text = "\(repository.starsCount)"
         repositoryLanguageLabel.text = repository.language
+        repositoryLanguageStackView.isHidden = repository.language == nil ? true : false
         repositoryLanguageColorView.backgroundColor = ProgramingLanguage(rawValue: repository.language).langColor
+        repositoryLanguageColorView.layer.cornerRadius = repositoryLanguageColorView.frame.width/2
     }
 }

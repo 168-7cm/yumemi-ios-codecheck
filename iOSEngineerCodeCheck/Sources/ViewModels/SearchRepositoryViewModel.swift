@@ -11,7 +11,7 @@ import RxSwift
 import RxRelay
 
 protocol SearchRepositoryViewModelInputs {
-    func searchRepository(GitHubAPI: GitHubAPI)
+    func searchRepository(keyword: String)
 }
 
 protocol SearchRepositoryViewModelOutputs {
@@ -42,9 +42,9 @@ extension SearchRepositoryViewModel: SearchRepositoryViewModelType {
 }
 
 extension SearchRepositoryViewModel: SearchRepositoryViewModelInputs {
-    func searchRepository(GitHubAPI: GitHubAPI) {
+    func searchRepository(keyword: String) {
         isLoadingRelay.accept(true)
-        model.searchRepository(gitHubAPI: GitHubAPI)
+        model.searchRepository(keyword: keyword)
             .subscribe(
                 onSuccess: { [weak self] repositories in
                     self?.isLoadingRelay.accept(false)

@@ -34,25 +34,35 @@ final class SearchRepositoryViewController: UIViewController {
     private func setup() {
         activityIndicatorView.hidesWhenStopped = true
         tableView.registerCustomCell(RepositoryCell.self)
+        tableView.keyboardDismissMode = .onDrag
         searchBar.text = L10n.SearchBar.Initial.message
-        searchBar.delegate = self
     }
 
     private func bindUI() {
 
-        /* セルとのバインド */
+        Observable.zip(
+            tableView.rx.modelSelected(Repository.self),
+            tableView.rx.itemSelected
+        ).subscribe(onNext: { [weak self] repository, indexPath in
+            self?.tableView.deselectRow(at: indexPath, animated: true)
+            self?.transitionToRepositoryDetail(repository: repository)
+        }).disposed(by: disposeBag)
+
+        searchBar.rx.text.orEmpty
+            .subscribe(onNext: { [weak self] keyword in
+                self?.viewModel.inputs.searchRepository(keyword: keyword)
+            }).disposed(by: disposeBag)
+
+        searchBar.rx.searchButtonClicked
+            .subscribe(onNext: { [weak self] _ in
+                self?.searchBar.resignFirstResponder()
+            }).disposed(by: disposeBag)
+
         viewModel.outputs.repositories
             .bind(to: tableView.rx.items(cellIdentifier: RepositoryCell.identifier, cellType: RepositoryCell.self)) { index, repository, cell in
                 cell.configure(repository: repository)
             }.disposed(by: disposeBag)
 
-        /* セル選択時 */
-        tableView.rx.modelSelected(Repository.self)
-            .subscribe(onNext: { [weak self] repository in
-                self?.transitionToRepositoryDetail(repository: repository)
-            }).disposed(by: disposeBag)
-
-        /* インジケータを表示 */
         viewModel.outputs.isLoading
             .subscribe(onNext: { [weak self] isLoading in
                 isLoading ? self?.activityIndicatorView.startAnimating() : self?.activityIndicatorView.stopAnimating()
@@ -62,19 +72,5 @@ final class SearchRepositoryViewController: UIViewController {
     private func transitionToRepositoryDetail(repository: Repository) {
         let viewController = RepositoryDetailViewController.configure(repository: repository)
         navigationController?.pushViewController(viewController, animated: true)
-    }
-}
-
-// TODO: Rxでバインドする
-extension SearchRepositoryViewController: UISearchBarDelegate  {
-
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        searchBar.text = ""
-        return true
-    }
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let gitHubAPI = GitHubAPI.searchRepository(keyword: searchBar.text!)
-        viewModel.inputs.searchRepository(GitHubAPI: gitHubAPI)
     }
 }

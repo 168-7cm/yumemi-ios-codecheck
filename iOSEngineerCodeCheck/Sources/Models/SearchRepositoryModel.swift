@@ -11,19 +11,21 @@ import RxSwift
 import Alamofire
 
 protocol SearchRepositoryModelType {
-    func searchRepository(gitHubAPI: GitHubAPI) -> Single<[Repository]>
+    func searchRepository(keyword: String) -> Single<[Repository]>
 }
 
 final class SearchRepositoryModel: SearchRepositoryModelType {
 
-    func searchRepository(gitHubAPI: GitHubAPI) -> Single<[Repository]> {
+    func searchRepository(keyword: String) -> Single<[Repository]> {
+
+        let api = GitHubAPI.searchRepository(keyword: keyword)
 
         return Single.create { observer in
 
             AF.request(
-                gitHubAPI.baseUrl.appendingPathComponent(gitHubAPI.path),
-                method: gitHubAPI.method,
-                parameters: gitHubAPI.parameters
+                api.baseUrl.appendingPathComponent(api.path),
+                method: api.method,
+                parameters: api.parameters
             )
                 .validate()
                 .responseDecodable(of: GitHubSearchResponse.self) { response in

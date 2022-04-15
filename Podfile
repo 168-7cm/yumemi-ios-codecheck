@@ -8,6 +8,7 @@ target 'iOSEngineerCodeCheck' do
   # Pods for iOSEngineerCodeCheck
   pod 'RxSwift', '6.5.0'
   pod 'RxCocoa', '6.5.0'
+  pod 'RxDataSources', '~> 5.0'
   pod 'SwiftGen', '~> 6.0'
   pod 'Alamofire', '~> 5.5'
 

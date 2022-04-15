@@ -20,10 +20,13 @@
 		BB2D69572801C9AB009D6F2A /* SearchRepository.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB2D69562801C9AB009D6F2A /* SearchRepository.storyboard */; };
 		BB2D69592803C431009D6F2A /* RepositoryDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB2D69582803C431009D6F2A /* RepositoryDetail.storyboard */; };
 		BB2D69602803C8E7009D6F2A /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D695F2803C8E7009D6F2A /* UIImage+Utils.swift */; };
-		BB2D696A280468EE009D6F2A /* UITableView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D6969280468EE009D6F2A /* UITableView+Utils.swift */; };
+		BB2D696A280468EE009D6F2A /* UICollectionView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D6969280468EE009D6F2A /* UICollectionView+Utils.swift */; };
 		BB93DEDD28046C4500420D29 /* RepositoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB93DEDC28046C4500420D29 /* RepositoryCell.swift */; };
 		BB93DEDF28046C4E00420D29 /* RepositoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB93DEDE28046C4E00420D29 /* RepositoryCell.xib */; };
 		BB93DEE12804729000420D29 /* ProgramingLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB93DEE02804729000420D29 /* ProgramingLanguage.swift */; };
+		BBAA3B72280818AE00BF683F /* SearchRepositoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAA3B71280818AE00BF683F /* SearchRepositoryDataSource.swift */; };
+		BBAA3B752809161500BF683F /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAA3B742809161500BF683F /* FilterCell.swift */; };
+		BBAA3B772809162000BF683F /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBAA3B762809162000BF683F /* FilterCell.xib */; };
 		BBCAA48A28008AD00000962D /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCAA48928008AD00000962D /* Repository.swift */; };
 		BBCAA48D280127160000962D /* GitHubSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCAA48C280127160000962D /* GitHubSearchResponse.swift */; };
 		BBCAA48F2801274A0000962D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCAA48E2801274A0000962D /* User.swift */; };
@@ -74,10 +77,13 @@
 		BB2D69562801C9AB009D6F2A /* SearchRepository.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchRepository.storyboard; sourceTree = "<group>"; };
 		BB2D69582803C431009D6F2A /* RepositoryDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RepositoryDetail.storyboard; sourceTree = "<group>"; };
 		BB2D695F2803C8E7009D6F2A /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
-		BB2D6969280468EE009D6F2A /* UITableView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Utils.swift"; sourceTree = "<group>"; };
+		BB2D6969280468EE009D6F2A /* UICollectionView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Utils.swift"; sourceTree = "<group>"; };
 		BB93DEDC28046C4500420D29 /* RepositoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryCell.swift; sourceTree = "<group>"; };
 		BB93DEDE28046C4E00420D29 /* RepositoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryCell.xib; sourceTree = "<group>"; };
 		BB93DEE02804729000420D29 /* ProgramingLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramingLanguage.swift; sourceTree = "<group>"; };
+		BBAA3B71280818AE00BF683F /* SearchRepositoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryDataSource.swift; sourceTree = "<group>"; };
+		BBAA3B742809161500BF683F /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		BBAA3B762809162000BF683F /* FilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
 		BBCAA48928008AD00000962D /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		BBCAA48C280127160000962D /* GitHubSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubSearchResponse.swift; sourceTree = "<group>"; };
 		BBCAA48E2801274A0000962D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -157,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				BB2D695F2803C8E7009D6F2A /* UIImage+Utils.swift */,
-				BB2D6969280468EE009D6F2A /* UITableView+Utils.swift */,
+				BB2D6969280468EE009D6F2A /* UICollectionView+Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -165,6 +171,7 @@
 		BB2D69612804677F009D6F2A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BBAA3B73280915FF00BF683F /* FilterCell */,
 				BB93DEDB28046C2300420D29 /* RepositoryCell */,
 			);
 			path = Views;
@@ -177,6 +184,23 @@
 				BB93DEDE28046C4E00420D29 /* RepositoryCell.xib */,
 			);
 			path = RepositoryCell;
+			sourceTree = "<group>";
+		};
+		BBAA3B702808189000BF683F /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				BBAA3B71280818AE00BF683F /* SearchRepositoryDataSource.swift */,
+			);
+			path = DataSources;
+			sourceTree = "<group>";
+		};
+		BBAA3B73280915FF00BF683F /* FilterCell */ = {
+			isa = PBXGroup;
+			children = (
+				BBAA3B742809161500BF683F /* FilterCell.swift */,
+				BBAA3B762809162000BF683F /* FilterCell.xib */,
+			);
+			path = FilterCell;
 			sourceTree = "<group>";
 		};
 		BBCAA48B280126630000962D /* Entities */ = {
@@ -222,6 +246,7 @@
 		BBCAA4932801343F0000962D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BBAA3B702808189000BF683F /* DataSources */,
 				BB2D695E2803C8D8009D6F2A /* Extensions */,
 				BB2D694C2801A798009D6F2A /* Enums */,
 				BB2D69492801A38C009D6F2A /* Models */,
@@ -434,6 +459,7 @@
 				BB93DEDF28046C4E00420D29 /* RepositoryCell.xib in Resources */,
 				BB2D69592803C431009D6F2A /* RepositoryDetail.storyboard in Resources */,
 				BB2D69572801C9AB009D6F2A /* SearchRepository.storyboard in Resources */,
+				BBAA3B772809162000BF683F /* FilterCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,13 +614,15 @@
 				BBCAA48A28008AD00000962D /* Repository.swift in Sources */,
 				BB2D69552801C54D009D6F2A /* SearchRepositoryViewModel.swift in Sources */,
 				BBCAA48D280127160000962D /* GitHubSearchResponse.swift in Sources */,
+				BBAA3B752809161500BF683F /* FilterCell.swift in Sources */,
 				BB2D694B2801A495009D6F2A /* SearchRepositoryModel.swift in Sources */,
+				BBAA3B72280818AE00BF683F /* SearchRepositoryDataSource.swift in Sources */,
 				BB93DEE12804729000420D29 /* ProgramingLanguage.swift in Sources */,
 				BB2D69602803C8E7009D6F2A /* UIImage+Utils.swift in Sources */,
 				BFD945DF244DC5E80012785A /* AppDelegate.swift in Sources */,
 				BFD945E1244DC5E80012785A /* SceneDelegate.swift in Sources */,
 				BB93DEDD28046C4500420D29 /* RepositoryCell.swift in Sources */,
-				BB2D696A280468EE009D6F2A /* UITableView+Utils.swift in Sources */,
+				BB2D696A280468EE009D6F2A /* UICollectionView+Utils.swift in Sources */,
 				BB2D694628014AC9009D6F2A /* Segues.swift in Sources */,
 				BBCAA48F2801274A0000962D /* User.swift in Sources */,
 			);
@@ -765,7 +793,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7MTQ5H3G29;
 				INFOPLIST_FILE = iOSEngineerCodeCheck/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -784,7 +812,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7MTQ5H3G29;
 				INFOPLIST_FILE = iOSEngineerCodeCheck/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

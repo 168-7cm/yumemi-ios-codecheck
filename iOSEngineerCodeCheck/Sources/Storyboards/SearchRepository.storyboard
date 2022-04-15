@@ -20,36 +20,17 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="W1a-X3-v80">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pK0-hw-wDe">
                                 <rect key="frame" x="0.0" y="139" width="414" height="723"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RepositoryCell" textLabel="y78-Ba-BBu" detailTextLabel="bzs-6t-UER" style="IBUITableViewCellStyleSubtitle" id="qG4-I6-oIH">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qG4-I6-oIH" id="Zbo-gQ-T7f">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y78-Ba-BBu">
-                                                    <rect key="frame" x="20" y="6" width="25" height="14.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bzs-6t-UER">
-                                                    <rect key="frame" x="20" y="22.5" width="40.5" height="13.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Nfo-Y8-tDx">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="7Uc-fL-eCm">
                                 <rect key="frame" x="197" y="438" width="20" height="20"/>
                             </activityIndicatorView>
@@ -57,22 +38,22 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="W1a-X3-v80" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="6fb-uO-39I"/>
                             <constraint firstItem="7Uc-fL-eCm" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="7Nd-RG-57O"/>
                             <constraint firstItem="bok-8X-8TO" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="7WA-Gu-CLK"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="W1a-X3-v80" secondAttribute="bottom" id="Mr8-Gl-zi9"/>
+                            <constraint firstItem="pK0-hw-wDe" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Dqx-nw-Vi4"/>
+                            <constraint firstItem="pK0-hw-wDe" firstAttribute="top" secondItem="bok-8X-8TO" secondAttribute="bottom" id="EQN-CI-VZy"/>
                             <constraint firstItem="bok-8X-8TO" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="PLC-Cx-jzh"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="W1a-X3-v80" secondAttribute="trailing" id="RLK-Xi-NZq"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="pK0-hw-wDe" secondAttribute="bottom" id="YMk-1s-DA7"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="pK0-hw-wDe" secondAttribute="trailing" id="en1-1y-kuo"/>
                             <constraint firstItem="bok-8X-8TO" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="hJ2-8u-ZKz"/>
-                            <constraint firstItem="W1a-X3-v80" firstAttribute="top" secondItem="bok-8X-8TO" secondAttribute="bottom" id="hTT-tD-c4f"/>
                             <constraint firstItem="7Uc-fL-eCm" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="pe9-cM-o3n"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ku2-EY-fB9"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="7Uc-fL-eCm" id="nvE-xP-qjx"/>
+                        <outlet property="collectionView" destination="pK0-hw-wDe" id="pui-om-raR"/>
                         <outlet property="searchBar" destination="bok-8X-8TO" id="GLG-yo-Opw"/>
-                        <outlet property="tableView" destination="W1a-X3-v80" id="KVo-uj-Hun"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

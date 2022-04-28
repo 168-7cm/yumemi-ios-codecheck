@@ -49,7 +49,8 @@ extension SearchRepositoryViewModel: SearchRepositoryViewModelInputs {
                 onSuccess: { [weak self] repositories in
                     self?.isLoadingRelay.accept(false)
                     let sectionItems: [SectionItem] = repositories.map { .main(repository: $0) }
-                    let sectionModel: [SectionModel] = [.header(title: "", items: sectionItems)]
+                    let items: [SectionItem] = ProgramingLanguage.allCases.map { .filter(lang: $0) }
+                    let sectionModel: [SectionModel] = [.header(title: "", items: sectionItems), .filter(title: "", items: items)]
                     self?.repositoriesRelay.accept(sectionModel)
                 },
                 onFailure: { [weak self] _ in

@@ -27,6 +27,9 @@ final class SearchRepositoryViewController: UIViewController {
                 let cell = collectionView.dequeueReusableCustomCell(with: RepositoryCell.self, indexPath: indexPath)
                 cell.configure(repository: repository)
                 return cell
+            case let .filter(lang: lang):
+                let cell = collectionView.dequeueReusableCustomCell(with: FilterCell.self, indexPath: indexPath)
+                return cell
             }
         })
 
@@ -46,6 +49,7 @@ final class SearchRepositoryViewController: UIViewController {
         activityIndicatorView.hidesWhenStopped = true
         collectionView.collectionViewLayout = createCollectionViewLayout()
         collectionView.registerCustomCell(RepositoryCell.self)
+        collectionView.registerCustomCell(FilterCell.self)
         collectionView.keyboardDismissMode = .onDrag
         searchBar.text = L10n.SearchBar.Initial.message
     }
@@ -91,23 +95,46 @@ extension SearchRepositoryViewController {
 
         let deviceWidth = UIScreen.main.bounds.width
 
-        let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+        let layout = UICollectionViewCompositionalLayout { [weak self] (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
-            // 1. Itemのサイズ設定
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            switch self!.dataSource[sectionIndex] {
+            case .header:
+                // 1. Itemのサイズ設定
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-            // 2. Groupのサイズ設定
-            let itemGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
-            let itemGroup = NSCollectionLayoutGroup.horizontal(layoutSize: itemGroupSize, subitem: item, count: 1)
+                // 2. Groupのサイズ設定
+                let itemGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
+                let itemGroup = NSCollectionLayoutGroup.horizontal(layoutSize: itemGroupSize, subitem: item, count: 1)
 
-            // 3. Sectionのサイズ設定
-            let section = NSCollectionLayoutSection(group: itemGroup)
-            section.interGroupSpacing = deviceWidth/100
-            let sectionFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.06))
-            let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionFooterSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
-            section.boundarySupplementaryItems = [sectionFooter]
-            return section
+                // 3. Sectionのサイズ設定
+                let section = NSCollectionLayoutSection(group: itemGroup)
+                section.interGroupSpacing = deviceWidth/100
+                let sectionFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.06))
+                let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionFooterSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
+                section.boundarySupplementaryItems = [sectionFooter]
+                return section
+
+            case .filter(title: _, items: let items):
+                // 1. Itemのサイズ設定
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+                // 2. Groupのサイズ設定
+                let itemGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.7))
+                let itemGroup = NSCollectionLayoutGroup.vertical(layoutSize: itemGroupSize, subitem: item, count: items.count)
+                // 「top」と「bottom」は、設定しても効かない
+                itemGroup.interItemSpacing = .fixed(deviceWidth/100)
+                itemGroup.contentInsets = .init(top: .zero, leading: deviceWidth/100, bottom: .zero, trailing: deviceWidth/100)
+
+                // 3. Sectionのサイズ設定
+                let section = NSCollectionLayoutSection(group: itemGroup)
+                section.interGroupSpacing = deviceWidth/100
+                let sectionFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.06))
+                let sectionfooter = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionFooterSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
+                section.boundarySupplementaryItems = [sectionfooter]
+                return section
+            }
         }
         return layout
     }

@@ -35,7 +35,7 @@ final class SearchRepositoryViewController: UIViewController {
         activityIndicatorView.hidesWhenStopped = true
         tableView.registerCustomCell(RepositoryCell.self)
         tableView.keyboardDismissMode = .onDrag
-        searchBar.text = L10n.SearchBar.Initial.message
+        searchBar.placeholder = L10n.SearchBar.Initial.message
     }
 
     private func bindUI() {

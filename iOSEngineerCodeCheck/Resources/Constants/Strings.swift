@@ -13,7 +13,7 @@ internal enum L10n {
 
   internal enum SearchBar {
     internal enum Initial {
-      /// GitHubのリポジトリを検索できるよー
+      /// 文字を入力
       internal static let message = L10n.tr("Localizable", "searchBar.initial.message")
     }
   }

@@ -49,15 +49,15 @@ final class SearchRepositoryViewController: UIViewController {
             self?.transitionToRepositoryDetail(repository: repository)
         }).disposed(by: disposeBag)
 
-        /*
-         なぜか初回購読時に呼ばれる。Driverにしているため？？Signalでも同じだった。。
-         API呼び出し中は再度呼べないようにしたい。。
-         */
         searchBar.rx.text.orEmpty.asDriver()
-            .throttle(.seconds(1))
             .filter { $0.count > 0 }
-            .drive(onNext: { [weak self] keyword in
-                self?.viewModel.inputs.searchRepository(keyword: keyword)
+            .throttle(.seconds(1))
+            .withLatestFrom(viewModel.outputs.isLoadingDriver)
+            .drive(onNext: { [weak self] isLoading in
+                /* isLoading = trueの場合にはAPI呼び出しをしない */
+                guard let self = self, !isLoading else { return }
+                /* filterでnilチェックしているので強制アンラップ */
+                self.viewModel.inputs.searchRepository(keyword: self.searchBar.text!)
             }).disposed(by: disposeBag)
 
         searchBar.rx.searchButtonClicked.asSignal()

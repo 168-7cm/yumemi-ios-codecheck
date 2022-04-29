@@ -6,8 +6,6 @@
 //  Copyright © 2022 YUMEMI Inc. All rights reserved.
 //
 
-import Foundation
-
 struct GitHubSearchResponse: Codable {
     let items: [Repository]
 }

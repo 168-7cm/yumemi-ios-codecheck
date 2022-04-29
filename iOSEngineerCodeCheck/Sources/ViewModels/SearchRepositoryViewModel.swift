@@ -9,14 +9,16 @@
 import Foundation
 import RxSwift
 import RxRelay
+import RxCocoa
 
 protocol SearchRepositoryViewModelInputs {
     func searchRepository(keyword: String)
 }
 
 protocol SearchRepositoryViewModelOutputs {
-    var repositories: Observable<[Repository]> { get }
-    var isLoading: Observable<Bool> { get }
+    var repositoriesDriver: Driver<[Repository]> { get }
+    var isLoadingDriver: Driver<Bool> { get }
+    var errorDriver: Driver<Error> { get }
 }
 
 protocol SearchRepositoryViewModelType {
@@ -29,6 +31,7 @@ final class SearchRepositoryViewModel {
     private let model: SearchRepositoryModelType
     private let repositoriesRelay = BehaviorRelay<[Repository]>(value: [])
     private let isLoadingRelay = BehaviorRelay<Bool>(value: false)
+    private let errorRelay = PublishRelay<Error>()
     private let disposeBag = DisposeBag()
 
     init(model: SearchRepositoryModelType) {
@@ -42,22 +45,24 @@ extension SearchRepositoryViewModel: SearchRepositoryViewModelType {
 }
 
 extension SearchRepositoryViewModel: SearchRepositoryViewModelInputs {
+    
     func searchRepository(keyword: String) {
         isLoadingRelay.accept(true)
         model.searchRepository(keyword: keyword)
-            .subscribe(
+            .do(onSuccess: { [weak self] _ in
+                self?.isLoadingRelay.accept(false)
+            }).subscribe(
                 onSuccess: { [weak self] repositories in
-                    self?.isLoadingRelay.accept(false)
                     self?.repositoriesRelay.accept(repositories)
                 },
-                onFailure: { [weak self] _ in
-                    self?.isLoadingRelay.accept(false)
-                    // TODO: show error alert
+                onFailure: { [weak self] error in
+                    self?.errorRelay.accept(error)
                 }).disposed(by: disposeBag)
     }
 }
 
 extension SearchRepositoryViewModel: SearchRepositoryViewModelOutputs {
-    var repositories: Observable<[Repository]> { return repositoriesRelay.asObservable() }
-    var isLoading: Observable<Bool> { return isLoadingRelay.asObservable() }
+    var repositoriesDriver: Driver<[Repository]> { return repositoriesRelay.asDriver() }
+    var isLoadingDriver: Driver<Bool> { return isLoadingRelay.asDriver() }
+    var errorDriver: Driver<Error> { return errorRelay.asDriver(onErrorDriveWith: .never()) }
 }

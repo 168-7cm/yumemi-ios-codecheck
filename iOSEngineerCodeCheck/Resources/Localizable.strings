@@ -6,4 +6,4 @@
   Copyright © 2022 YUMEMI Inc. All rights reserved.
 */
 
-searchBar.initial.message = "GitHubのリポジトリを検索できるよー";
+searchBar.initial.message = "文字を入力";

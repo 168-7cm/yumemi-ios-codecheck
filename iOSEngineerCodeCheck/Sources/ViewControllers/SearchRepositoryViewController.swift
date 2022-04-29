@@ -35,11 +35,12 @@ final class SearchRepositoryViewController: UIViewController {
         activityIndicatorView.hidesWhenStopped = true
         tableView.registerCustomCell(RepositoryCell.self)
         tableView.keyboardDismissMode = .onDrag
-        searchBar.text = L10n.SearchBar.Initial.message
+        searchBar.placeholder = L10n.SearchBar.Initial.message
     }
 
     private func bindUI() {
 
+        /* Input */
         Observable.zip(
             tableView.rx.modelSelected(Repository.self),
             tableView.rx.itemSelected
@@ -48,24 +49,35 @@ final class SearchRepositoryViewController: UIViewController {
             self?.transitionToRepositoryDetail(repository: repository)
         }).disposed(by: disposeBag)
 
-        searchBar.rx.text.orEmpty
-            .subscribe(onNext: { [weak self] keyword in
+        /*
+         なぜか初回購読時に呼ばれる。Driverにしているため？？Signalでも同じだった。。
+         API呼び出し中は再度呼べないようにしたい。。
+         */
+        searchBar.rx.text.orEmpty.asDriver()
+            .throttle(.seconds(1))
+            .filter { $0.count > 0 }
+            .drive(onNext: { [weak self] keyword in
                 self?.viewModel.inputs.searchRepository(keyword: keyword)
             }).disposed(by: disposeBag)
 
-        searchBar.rx.searchButtonClicked
-            .subscribe(onNext: { [weak self] _ in
+        searchBar.rx.searchButtonClicked.asSignal()
+            .emit(onNext: { [weak self] _ in
                 self?.searchBar.resignFirstResponder()
             }).disposed(by: disposeBag)
 
-        viewModel.outputs.repositories
-            .bind(to: tableView.rx.items(cellIdentifier: RepositoryCell.identifier, cellType: RepositoryCell.self)) { index, repository, cell in
+        /* Output */
+        viewModel.outputs.isLoadingDriver
+            .drive(activityIndicatorView.rx.isAnimating)
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.repositoriesDriver
+            .drive(tableView.rx.items(cellIdentifier: RepositoryCell.identifier, cellType: RepositoryCell.self)) { index, repository, cell in
                 cell.configure(repository: repository)
             }.disposed(by: disposeBag)
 
-        viewModel.outputs.isLoading
-            .subscribe(onNext: { [weak self] isLoading in
-                isLoading ? self?.activityIndicatorView.startAnimating() : self?.activityIndicatorView.stopAnimating()
+        viewModel.outputs.errorDriver
+            .drive(onNext: { [weak self] error in
+                self?.showError("エラー", message: error.localizedDescription)
             }).disposed(by: disposeBag)
     }
 

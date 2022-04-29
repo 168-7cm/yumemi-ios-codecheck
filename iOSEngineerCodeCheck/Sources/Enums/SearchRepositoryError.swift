@@ -9,22 +9,19 @@
 import Foundation
 
 enum SearchRepositoryError: Error {
-
     case invalidUrlError
     case connectionError
     case responseParseError
     case apiError
+}
 
-    func errorMessage() -> String {
+extension SearchRepositoryError: LocalizedError {
+    var errorDescription: String? {
         switch self {
-        case .invalidUrlError:
-            return ""
-        case .connectionError:
-            return ""
-        case .responseParseError:
-            return ""
-        case .apiError:
-            return ""
+        case .invalidUrlError: return "あ"
+        case .connectionError: return "あ"
+        case .responseParseError: return "あ"
+        case .apiError: return "あ"
         }
     }
 }

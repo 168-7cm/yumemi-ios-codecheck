@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NSObject_Rx
 
 final class RepositoryDetailViewController: UIViewController {
     
@@ -17,18 +18,23 @@ final class RepositoryDetailViewController: UIViewController {
     @IBOutlet private weak var repositoryWatcherCountLabel: UILabel!
     @IBOutlet private weak var repositoryForkedCountLabel: UILabel!
     @IBOutlet private weak var repositoryOpenIssueCountLabel: UILabel!
-    
-    private var repository: Repository!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI(repository: repository)
+        bind()
     }
 
-    static func configure(repository: Repository) -> RepositoryDetailViewController {
+    static func configure() -> RepositoryDetailViewController {
         let viewController = StoryboardScene.RepositoryDetail.repositoryDetail.instantiate()
-        viewController.repository = repository
         return viewController
+    }
+
+    private func bind() {
+        rxStore.rxStateDriver.compactMap { $0.repositoryDetailState.repository }
+            .asDriver()
+            .drive(onNext: { [weak self] repository in
+                self?.setupUI(repository: repository)
+            }).disposed(by: rx.disposeBag)
     }
 
     private func setupUI(repository: Repository) {

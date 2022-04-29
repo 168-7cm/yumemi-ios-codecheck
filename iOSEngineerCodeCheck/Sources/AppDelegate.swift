@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,3 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 }
+
+// Redux Store
+let appStore = Store<AppState>(reducer: AppReducer.reduce, state: AppState())
+let rxStore: RxStore<AppState> = RxStore(store: appStore)

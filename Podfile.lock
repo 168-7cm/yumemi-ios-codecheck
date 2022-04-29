@@ -1,5 +1,12 @@
 PODS:
   - Alamofire (5.5.0)
+  - Moya (15.0.0):
+    - Moya/Core (= 15.0.0)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - "NSObject+Rx (5.2.2)":
+    - RxSwift (~> 6.2)
+  - ReSwift (6.1.0)
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
     - RxSwift (= 6.5.0)
@@ -10,6 +17,9 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.5)
+  - Moya (~> 15.0)
+  - "NSObject+Rx"
+  - ReSwift
   - RxCocoa (= 6.5.0)
   - RxSwift (= 6.5.0)
   - SwiftGen (~> 6.0)
@@ -17,6 +27,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Moya
+    - "NSObject+Rx"
+    - ReSwift
     - RxCocoa
     - RxRelay
     - RxSwift
@@ -24,11 +37,14 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  "NSObject+Rx": 61cf1f7306a73dcef8b36649198af0813ec18dfd
+  ReSwift: eab3c01e4279ba81b54a61e4fd6499634d20123a
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SwiftGen: a6d22010845f08fe18fbdf3a07a8e380fd22e0ea
 
-PODFILE CHECKSUM: 60093a92d3827fb11abebad9c13b7e9632c411b2
+PODFILE CHECKSUM: 9f5c956ee10e6e5e25770f86d0c3e195858dfc29
 
 COCOAPODS: 1.11.2

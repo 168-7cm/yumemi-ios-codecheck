@@ -11,6 +11,14 @@
 		21C4567195D570C98C1CD69E /* Pods_iOSEngineerCodeCheckTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE2AFE5A75C2BA5E2B137DB8 /* Pods_iOSEngineerCodeCheckTests.framework */; };
 		7BB77B7D30A502DD1910B7C4 /* Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8BC1AE5CA11155D9D504623 /* Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework */; };
 		BB263841281AE3D60005C937 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB263840281AE3D60005C937 /* UIViewController+Utils.swift */; };
+		BB263880281BAE6A0005C937 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB26387F281BAE6A0005C937 /* AppState.swift */; };
+		BB263883281BAEA10005C937 /* SearchRepositoryReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB263882281BAEA10005C937 /* SearchRepositoryReducer.swift */; };
+		BB263885281BB0830005C937 /* RepositoryDetailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB263884281BB0830005C937 /* RepositoryDetailState.swift */; };
+		BB263887281BB0BF0005C937 /* SearchRepositoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB263886281BB0BF0005C937 /* SearchRepositoryState.swift */; };
+		BB26388B281BB1A20005C937 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB26388A281BB1A20005C937 /* AppReducer.swift */; };
+		BB26388D281BB32B0005C937 /* RepositoryDetailReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB26388C281BB32B0005C937 /* RepositoryDetailReducer.swift */; };
+		BB263890281BB8550005C937 /* RxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB26388F281BB8550005C937 /* RxStore.swift */; };
+		BB263892281BC0170005C937 /* SearchRepositoryActionCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB263891281BC0170005C937 /* SearchRepositoryActionCreator.swift */; };
 		BB2D694528014AC9009D6F2A /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D694228014AC9009D6F2A /* Assets.swift */; };
 		BB2D694628014AC9009D6F2A /* Segues.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D694328014AC9009D6F2A /* Segues.swift */; };
 		BB2D694728014AC9009D6F2A /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D694428014AC9009D6F2A /* Strings.swift */; };
@@ -64,6 +72,14 @@
 		50D0854F0FA29A82AFEFB531 /* Pods-iOSEngineerCodeCheck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSEngineerCodeCheck.release.xcconfig"; path = "Target Support Files/Pods-iOSEngineerCodeCheck/Pods-iOSEngineerCodeCheck.release.xcconfig"; sourceTree = "<group>"; };
 		64CDC134EE559406E77F99DE /* Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.release.xcconfig"; path = "Target Support Files/Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests/Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BB263840281AE3D60005C937 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
+		BB26387F281BAE6A0005C937 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		BB263882281BAEA10005C937 /* SearchRepositoryReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryReducer.swift; sourceTree = "<group>"; };
+		BB263884281BB0830005C937 /* RepositoryDetailState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailState.swift; sourceTree = "<group>"; };
+		BB263886281BB0BF0005C937 /* SearchRepositoryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryState.swift; sourceTree = "<group>"; };
+		BB26388A281BB1A20005C937 /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
+		BB26388C281BB32B0005C937 /* RepositoryDetailReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailReducer.swift; sourceTree = "<group>"; };
+		BB26388F281BB8550005C937 /* RxStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxStore.swift; sourceTree = "<group>"; };
+		BB263891281BC0170005C937 /* SearchRepositoryActionCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryActionCreator.swift; sourceTree = "<group>"; };
 		BB2D694228014AC9009D6F2A /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		BB2D694328014AC9009D6F2A /* Segues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segues.swift; sourceTree = "<group>"; };
 		BB2D694428014AC9009D6F2A /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -137,6 +153,42 @@
 				FE2AFE5A75C2BA5E2B137DB8 /* Pods_iOSEngineerCodeCheckTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BB26387E281BAE4C0005C937 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				BB26387F281BAE6A0005C937 /* AppState.swift */,
+				BB263884281BB0830005C937 /* RepositoryDetailState.swift */,
+				BB263886281BB0BF0005C937 /* SearchRepositoryState.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		BB263881281BAE8F0005C937 /* Reducer */ = {
+			isa = PBXGroup;
+			children = (
+				BB26388A281BB1A20005C937 /* AppReducer.swift */,
+				BB26388C281BB32B0005C937 /* RepositoryDetailReducer.swift */,
+				BB263882281BAEA10005C937 /* SearchRepositoryReducer.swift */,
+			);
+			path = Reducer;
+			sourceTree = "<group>";
+		};
+		BB26388E281BB8420005C937 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				BB26388F281BB8550005C937 /* RxStore.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		BB263893281BC3EA0005C937 /* ActionCreator */ = {
+			isa = PBXGroup;
+			children = (
+				BB263891281BC0170005C937 /* SearchRepositoryActionCreator.swift */,
+			);
+			path = ActionCreator;
 			sourceTree = "<group>";
 		};
 		BB2D69482801A384009D6F2A /* ViewModels */ = {
@@ -235,6 +287,10 @@
 		BBCAA4932801343F0000962D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BB263893281BC3EA0005C937 /* ActionCreator */,
+				BB263881281BAE8F0005C937 /* Reducer */,
+				BB26387E281BAE4C0005C937 /* State */,
+				BB26388E281BB8420005C937 /* Store */,
 				BB2D695E2803C8D8009D6F2A /* Extensions */,
 				BB2D694C2801A798009D6F2A /* Enums */,
 				BB2D69492801A38C009D6F2A /* Models */,
@@ -242,9 +298,9 @@
 				BB2D69612804677F009D6F2A /* Views */,
 				BB2D69482801A384009D6F2A /* ViewModels */,
 				BBCAA48B280126630000962D /* Entities */,
+				BBCAA491280134080000962D /* Storyboards */,
 				BFD945DE244DC5E80012785A /* AppDelegate.swift */,
 				BFD945E0244DC5E80012785A /* SceneDelegate.swift */,
-				BBCAA491280134080000962D /* Storyboards */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -582,6 +638,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB26388D281BB32B0005C937 /* RepositoryDetailReducer.swift in Sources */,
 				BFD945E3244DC5E80012785A /* SearchRepositoryViewController.swift in Sources */,
 				BF0A658D244F2A3B00280FA6 /* RepositoryDetailViewController.swift in Sources */,
 				BB2D694E2801A7B5009D6F2A /* SearchRepositoryError.swift in Sources */,
@@ -589,17 +646,24 @@
 				BB2D69532801A965009D6F2A /* GitHubAPI.swift in Sources */,
 				BB263841281AE3D60005C937 /* UIViewController+Utils.swift in Sources */,
 				BB2D694528014AC9009D6F2A /* Assets.swift in Sources */,
+				BB263883281BAEA10005C937 /* SearchRepositoryReducer.swift in Sources */,
 				BBCAA48A28008AD00000962D /* Repository.swift in Sources */,
 				BB2D69552801C54D009D6F2A /* SearchRepositoryViewModel.swift in Sources */,
 				BBCAA48D280127160000962D /* GitHubSearchResponse.swift in Sources */,
 				BB2D694B2801A495009D6F2A /* SearchRepositoryModel.swift in Sources */,
+				BB263887281BB0BF0005C937 /* SearchRepositoryState.swift in Sources */,
+				BB263880281BAE6A0005C937 /* AppState.swift in Sources */,
 				BB93DEE12804729000420D29 /* ProgramingLanguage.swift in Sources */,
 				BB2D69602803C8E7009D6F2A /* UIImage+Utils.swift in Sources */,
+				BB26388B281BB1A20005C937 /* AppReducer.swift in Sources */,
 				BFD945DF244DC5E80012785A /* AppDelegate.swift in Sources */,
+				BB263885281BB0830005C937 /* RepositoryDetailState.swift in Sources */,
 				BFD945E1244DC5E80012785A /* SceneDelegate.swift in Sources */,
+				BB263892281BC0170005C937 /* SearchRepositoryActionCreator.swift in Sources */,
 				BB93DEDD28046C4500420D29 /* RepositoryCell.swift in Sources */,
 				BB2D696A280468EE009D6F2A /* UITableView+Utils.swift in Sources */,
 				BB2D694628014AC9009D6F2A /* Segues.swift in Sources */,
+				BB263890281BB8550005C937 /* RxStore.swift in Sources */,
 				BBCAA48F2801274A0000962D /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -769,7 +833,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7MTQ5H3G29;
 				INFOPLIST_FILE = iOSEngineerCodeCheck/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -788,7 +852,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7MTQ5H3G29;
 				INFOPLIST_FILE = iOSEngineerCodeCheck/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

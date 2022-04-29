@@ -8,7 +8,9 @@
 
 import UIKit
 import RxSwift
+import ReSwift
 import RxCocoa
+import NSObject_Rx
 
 final class SearchRepositoryViewController: UIViewController {
 
@@ -16,8 +18,7 @@ final class SearchRepositoryViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
-    private var viewModel: SearchRepositoryViewModelType!
-    private let disposeBag = DisposeBag()
+    private var actionCreator: SearchRepositoryActionCreator!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,7 @@ final class SearchRepositoryViewController: UIViewController {
 
     static func configure() -> SearchRepositoryViewController {
         let viewController = StoryboardScene.SearchRepository.searchRepository.instantiate()
-        viewController.viewModel = SearchRepositoryViewModel(model: SearchRepositoryModel())
+        viewController.actionCreator = SearchRepositoryActionCreator()
         return viewController
     }
 
@@ -47,42 +48,44 @@ final class SearchRepositoryViewController: UIViewController {
         ).subscribe(onNext: { [weak self] repository, indexPath in
             self?.tableView.deselectRow(at: indexPath, animated: true)
             self?.transitionToRepositoryDetail(repository: repository)
-        }).disposed(by: disposeBag)
+        }).disposed(by: rx.disposeBag)
 
-        /*
-         なぜか初回購読時に呼ばれる。Driverにしているため？？Signalでも同じだった。。
-         API呼び出し中は再度呼べないようにしたい。。
-         */
         searchBar.rx.text.orEmpty.asDriver()
-            .throttle(.seconds(1))
             .filter { $0.count > 0 }
-            .drive(onNext: { [weak self] keyword in
-                self?.viewModel.inputs.searchRepository(keyword: keyword)
-            }).disposed(by: disposeBag)
+            .throttle(.seconds(1))
+            .withLatestFrom(rxStore.rxStateDriver.map { $0.searchRepositoryState.isLoading}.asDriver())
+            .drive(onNext: { [weak self] isLoading in
+                /* isLoading = trueの場合にはAPI呼び出しをしない */
+                guard let self = self, !isLoading else { return }
+                self.actionCreator.searchRepository(keyword: self.searchBar.text!)
+            }).disposed(by: rx.disposeBag)
 
         searchBar.rx.searchButtonClicked.asSignal()
             .emit(onNext: { [weak self] _ in
                 self?.searchBar.resignFirstResponder()
-            }).disposed(by: disposeBag)
+            }).disposed(by: rx.disposeBag)
 
         /* Output */
-        viewModel.outputs.isLoadingDriver
+        rxStore.rxStateDriver.map { $0.searchRepositoryState.isLoading }
+            .asDriver()
             .drive(activityIndicatorView.rx.isAnimating)
-            .disposed(by: disposeBag)
+            .disposed(by: rx.disposeBag)
 
-        viewModel.outputs.repositoriesDriver
+        rxStore.rxStateDriver.map { $0.searchRepositoryState.repositories }
+            .asDriver()
             .drive(tableView.rx.items(cellIdentifier: RepositoryCell.identifier, cellType: RepositoryCell.self)) { index, repository, cell in
                 cell.configure(repository: repository)
-            }.disposed(by: disposeBag)
+            }.disposed(by: rx.disposeBag)
 
-        viewModel.outputs.errorDriver
+        rxStore.rxStateDriver.compactMap { $0.searchRepositoryState.error }
             .drive(onNext: { [weak self] error in
                 self?.showError("エラー", message: error.localizedDescription)
-            }).disposed(by: disposeBag)
+            }).disposed(by: rx.disposeBag)
     }
 
     private func transitionToRepositoryDetail(repository: Repository) {
-        let viewController = RepositoryDetailViewController.configure(repository: repository)
+        appStore.dispatch(RepositoryDetailState.Action.beforeNavigation(repository: repository))
+        let viewController = RepositoryDetailViewController.configure()
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

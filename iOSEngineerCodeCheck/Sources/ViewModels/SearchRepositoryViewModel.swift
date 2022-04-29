@@ -49,13 +49,13 @@ extension SearchRepositoryViewModel: SearchRepositoryViewModelInputs {
     func searchRepository(keyword: String) {
         isLoadingRelay.accept(true)
         model.searchRepository(keyword: keyword)
-            .do(onSuccess: { [weak self] _ in
-                self?.isLoadingRelay.accept(false)
-            }).subscribe(
+            .subscribe(
                 onSuccess: { [weak self] repositories in
+                    self?.isLoadingRelay.accept(false)
                     self?.repositoriesRelay.accept(repositories)
                 },
                 onFailure: { [weak self] error in
+                    self?.isLoadingRelay.accept(false)
                     self?.errorRelay.accept(error)
                 }).disposed(by: disposeBag)
     }

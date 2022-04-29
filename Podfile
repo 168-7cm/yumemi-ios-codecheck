@@ -6,10 +6,21 @@ target 'iOSEngineerCodeCheck' do
   use_frameworks!
 
   # Pods for iOSEngineerCodeCheck
+
+  # Reactive
   pod 'RxSwift', '6.5.0'
   pod 'RxCocoa', '6.5.0'
-  pod 'SwiftGen', '~> 6.0'
+  pod 'NSObject+Rx'
+
+  # Redux
+  pod 'ReSwift'
+
+  # Network
   pod 'Alamofire', '~> 5.5'
+  pod 'Moya', '~> 15.0'
+
+  # Resource Management
+  pod 'SwiftGen', '~> 6.0'
 
   target 'iOSEngineerCodeCheckTests' do
     inherit! :search_paths

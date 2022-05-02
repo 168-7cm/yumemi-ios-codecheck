@@ -191,6 +191,17 @@
 			path = ActionCreator;
 			sourceTree = "<group>";
 		};
+		BB263894281BCACB0005C937 /* Redux */ = {
+			isa = PBXGroup;
+			children = (
+				BB263893281BC3EA0005C937 /* ActionCreator */,
+				BB263881281BAE8F0005C937 /* Reducer */,
+				BB26387E281BAE4C0005C937 /* State */,
+				BB26388E281BB8420005C937 /* Store */,
+			);
+			path = Redux;
+			sourceTree = "<group>";
+		};
 		BB2D69482801A384009D6F2A /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,10 +298,7 @@
 		BBCAA4932801343F0000962D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				BB263893281BC3EA0005C937 /* ActionCreator */,
-				BB263881281BAE8F0005C937 /* Reducer */,
-				BB26387E281BAE4C0005C937 /* State */,
-				BB26388E281BB8420005C937 /* Store */,
+				BB263894281BCACB0005C937 /* Redux */,
 				BB2D695E2803C8D8009D6F2A /* Extensions */,
 				BB2D694C2801A798009D6F2A /* Enums */,
 				BB2D69492801A38C009D6F2A /* Models */,
